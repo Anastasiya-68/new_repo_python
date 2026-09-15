@@ -1,2 +1,7 @@
 training_scripts/
 lesson_*/(за лектором)/
+__pycache__/
+lesson_03/__pycache__/
+lesson_04/__pycache__/
+*.pyc
+.pytest_cache/
