@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class OrderPage:
     FIRST_NAME_INPUT = (By.ID, "first-name")
     LAST_NAME_INPUT = (By.CSS_SELECTOR, "input[placeholder='Last Name']")
@@ -13,25 +14,25 @@ class OrderPage:
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
 
-    # Заполнить форму данными: Анастасия Фролова 392000
-    def data_form(self):
+    # Заполнить форму данными:
+    def data_form(self, first_name, last_name, zip_code):
         first_name_input = self.wait.until(
             EC.presence_of_element_located(self.FIRST_NAME_INPUT)
         )
         first_name_input.clear()
-        first_name_input.send_keys("Анастасия")
+        first_name_input.send_keys(first_name)
 
         last_name_input = self.wait.until(
             EC.presence_of_element_located(self.LAST_NAME_INPUT)
         )
         last_name_input.clear()
-        last_name_input.send_keys("Фролова")
+        last_name_input.send_keys(last_name)
 
         zip_input = self.wait.until(
             EC.presence_of_element_located(self.ZIP_INPUT)
         )
         zip_input.clear()
-        zip_input.send_keys("392000")
+        zip_input.send_keys(str(zip_code))
 
     # Нажать кнопку Continue
     def continue_btn(self):

@@ -42,7 +42,7 @@ def test_shop(driver):
 
     # Заполнить форму данными: Анастасия Фролова 392000
     order = OrderPage(driver)
-    order.data_form()
+    order.data_form("Анастасия", "Фролова", "392000")
 
     # Нажать кнопку Continue
     order.continue_btn()
@@ -52,5 +52,6 @@ def test_shop(driver):
     total_price = result.get_total_price()
 
     assert "$58.29" in total_price, (
-        f"Итоговая сумма не равна $58.29 : {total_price}"
+        f"Итоговая сумма не равна $58.29."
+        f"На странице отображается: {total_price}"
     )

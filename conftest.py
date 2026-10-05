@@ -1,4 +1,3 @@
-from email.policy import default
 import pytest
 from selenium import webdriver
 from driver_factory import create_driver

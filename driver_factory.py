@@ -1,8 +1,4 @@
-from requests import options
 from selenium import  webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.edge.options import Options
 
 # сафари не поддерживает headless-режим.для него опции импортировать не надо
 

@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class LoginPage:
     USER_NAME_INPUT = (By.ID, "user-name")
     PASSWORD_INPUT = (By.ID, "password")

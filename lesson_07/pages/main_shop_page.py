@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class MainShopPage:
     BACKPACK_BTN = (By.ID, "add-to-cart-sauce-labs-backpack")
     T_SHIRT_BTN = (By.ID, "add-to-cart-sauce-labs-bolt-t-shirt")

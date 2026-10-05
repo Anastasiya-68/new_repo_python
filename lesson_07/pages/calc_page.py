@@ -15,22 +15,20 @@ class CalcPage:
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
 
-    # Открыть страницу https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html
-    # в браузере Google Chrome
-    def open_calc(self):
-        self.driver.get(
-            "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html"
-        )
+    # Открыть страницу калькулятора в браузере Google Chrome
+    def open_calc(self, url):
+        self.driver.get(url)
+
     # В поле ввода задержки ввести значение 45
-    def delay_input(self):
+    def delay_input(self, delay_time):
         delay_input_button = self.wait.until(
             EC.presence_of_element_located(self.DELAY_INPUT_BUTTON)
         )
         delay_input_button.clear()
-        delay_input_button.send_keys("45")
+        delay_input_button.send_keys(str(delay_time))
 
     # Нажать на кнопки: "7", "+", "8" и "="
-    def сalculator_buttons(self):
+    def calculator_buttons(self):
         seven_btn = self.wait.until(
             EC.presence_of_element_located(self.SEVEN_BUTTON)
         )
@@ -51,11 +49,9 @@ class CalcPage:
         )
         equal_btn.click()
 
-
     def get_result_addition(self):
         long_wait = WebDriverWait(self.driver, 48)
         long_wait.until(
             EC.text_to_be_present_in_element(self.FIELD_RESULT, "15")
         )
         return self.driver.find_element(*self.FIELD_RESULT).text
-
