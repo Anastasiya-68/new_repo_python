@@ -16,9 +16,9 @@ class ProjectApi:
         my_headers["Authorization"] = f"Bearer {self.token}"
 
         resp = requests.get(self.url + "/api-v2/projects", headers=my_headers)
-        return resp.json()
+        return resp
 
-    # 2. Метод создания проекта
+    # 2. Метод создания проекта с рандомным названием
     def create_project(self):
         title = fake.catch_phrase()
         new_project = {"title": title}
@@ -29,11 +29,19 @@ class ProjectApi:
         resp = requests.post(
             self.url + "/api-v2/projects", json=new_project, headers=my_headers
             )
-        return resp.json()
+        return resp
 
-    # 2. Метод создания проекта с пустым названием (негативная проверка)
+    # 3. Метод создания проекта с конкретным именем
+    def create_project_with_title(self, title):
+        new_project = {"title": title}
+        my_headers = {"Authorization": f"Bearer {self.token}"}
+        resp = requests.post(
+            self.url + "/api-v2/projects", json=new_project, headers=my_headers
+        )
+        return resp
+
+    # 4. Метод создания проекта с пустым названием (негативная проверка)
     def create_project_empty_title(self):
-
         title = ""
         new_project = {"title": title}
 
@@ -45,7 +53,7 @@ class ProjectApi:
             )
         return resp
 
-    # 3. Метод получения проекта по id
+    # 5. Метод получения проекта по id
     def get_project_by_id(self, project_id):
 
         my_headers = {}
@@ -55,9 +63,9 @@ class ProjectApi:
             self.url + "/api-v2/projects/" + str(
                 project_id), headers=my_headers
             )
-        return resp.json()
+        return resp
 
-    # 4. Метод получения проекта по несуществующему id (негативная проверка)
+    # 6. Метод получения проекта по несуществующему id (негативная проверка)
     def get_project_by_fake_id(self, project_id):
         my_headers = {}
         my_headers["Authorization"] = f"Bearer {self.token}"
@@ -68,7 +76,7 @@ class ProjectApi:
             )
         return resp
 
-    # 4. Метод изменения проекта
+    # 7. Метод изменения проекта
     def edit_project(self, project_id, new_title):
 
         new_project = {"title": new_title}
@@ -80,11 +88,21 @@ class ProjectApi:
             self.url + "/api-v2/projects/" + str(
                 project_id), json=new_project, headers=my_headers
             )
-        return resp.json()
+        return resp
 
-    # 4. Метод изменения удаленного проекта
+    # 8. Метод изменения удаленного проекта
     def edit_remote_project(self, project_id, body):
 
+        my_headers = {}
+        my_headers["Authorization"] = f"Bearer {self.token}"
+
+        resp = requests.put(self.url + "/api-v2/projects/" + str(
+            project_id), json=body, headers=my_headers)
+        return resp
+
+    # 9. Метод удаления проекта
+    def delete_project(self, project_id):
+        body = {"deleted": True}
         my_headers = {}
         my_headers["Authorization"] = f"Bearer {self.token}"
 

@@ -1,5 +1,8 @@
 import pytest
 from selenium import webdriver
+from lesson_08.project_page import ProjectApi
+
+api = ProjectApi("https://ru.yougile.com")
 
 # def pytest_addoption(parser):
 #     parser.addoption(
@@ -23,3 +26,13 @@ def driver(request):
 
     yield driver
     driver.quit()
+
+# Фикстура для автоматического удаления проекта после теста
+@pytest.fixture
+def project_cleanup():
+    context = {"id": None}
+    
+    yield context
+    
+    if context["id"]:
+        api.delete_project(context["id"])
