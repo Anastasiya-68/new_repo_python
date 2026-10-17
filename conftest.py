@@ -27,12 +27,13 @@ def driver(request):
     yield driver
     driver.quit()
 
+
 # Фикстура для автоматического удаления проекта после теста
 @pytest.fixture
 def project_cleanup():
     context = {"id": None}
-    
+
     yield context
-    
+
     if context["id"]:
         api.delete_project(context["id"])
