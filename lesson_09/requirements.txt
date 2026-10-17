@@ -1,0 +1,4 @@
+pytest
+sqlalchemy
+faker
+psycopg2-binary
