@@ -1,24 +1,29 @@
 import pytest
 from selenium import webdriver
-from lesson_08.project_page import ProjectApi
-
-api = ProjectApi("https://ru.yougile.com")
-
-# def pytest_addoption(parser):
-#     parser.addoption(
-#         "--browser",
-#         action="store",
-#         default="chrome",
-#         help="Выберите браузер chrome или firefox",
-#     )
+from selenium.webdriver.chrome.options import Options
 
 
 @pytest.fixture(scope="session")
 def driver(request):
-    browser = request.config.getoption("--browser")
+    browser = request.config.getoption("--browser") or "chrome"
 
     if browser == "chrome":
-        driver = webdriver.Chrome()
+        chrome_options = Options()
+        
+        # 1. Подавляем проверку безопасности 
+        chrome_options.add_argument("--disable-features=PasswordLeakDetection,PasswordProtection")
+        chrome_options.add_argument("--safebrowsing-disable-leak-detection")
+        
+        # 2. Глубокий отладочный флаг, который отключает алерты утечки паролей при тестировании
+        chrome_options.add_experimental_option("prefs", {
+            "reduce-security-for-testing": True,  # Критический флаг для обхода алертов
+            "credentials_enable_service": False,
+            "profile.password_manager_enabled": False,
+            "profile.password_manager_leak_detection": False
+        })
+        
+        driver = webdriver.Chrome(options=chrome_options)
+        
     elif browser == "firefox":
         driver = webdriver.Firefox()
     else:
@@ -26,14 +31,3 @@ def driver(request):
 
     yield driver
     driver.quit()
-
-
-# Фикстура для автоматического удаления проекта после теста
-@pytest.fixture
-def project_cleanup():
-    context = {"id": None}
-
-    yield context
-
-    if context["id"]:
-        api.delete_project(context["id"])
