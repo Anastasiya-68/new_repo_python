@@ -1,6 +1,7 @@
-from selenium import  webdriver
+from selenium import webdriver
 
 # сафари не поддерживает headless-режим.для него опции импортировать не надо
+
 
 def create_driver(browser="chrome", headless=False):
     if browser == "chrome":
@@ -21,6 +22,6 @@ def create_driver(browser="chrome", headless=False):
         options = webdriver.EdgeOptions()
         if headless:
             options.add_argument("--headless")
-        return  webdriver.Edge(options=options)
+        return webdriver.Edge(options=options)
     else:
         raise ValueError(f"Браузер {browser} не поддерживается")
